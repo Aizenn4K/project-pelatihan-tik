@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Planner Makanan & Gizi Harian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🥗 Planner Makanan & Gizi Harian</h1>
+        <p>Pilih makanan yang kamu konsumsi hari ini:</p>
+
+        <div class="makanan-list">
+            {% for m in makanan %}
+            <label>
+                <input type="checkbox" value="{{ m.nama }}">
+                {{ m.nama }} ({{ m.kalori }} kal)
+            </label><br>
+            {% endfor %}
+        </div>
+
+        <button id="btnHitung">Hitung Kalori</button>
+        <p id="hasil"></p>
+
+        <hr>
+        <h2>Saran Menu Sehat 🔍</h2>
+        <button id="btnSaran">Lihat Saran</button>
+        <ul id="daftarSaran"></ul>
+    </div>
+
+    <script>
+        document.getElementById("btnHitung").onclick = async () => {
+            let selected = [...document.querySelectorAll("input:checked")].map(el => el.value);
+            let res = await fetch("/hitung", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({makanan: selected})
+            });
+            let data = await res.json();
+            document.getElementById("hasil").innerText = "Total Kalori: " + data.total + " kal";
+        };
+
+        document.getElementById("btnSaran").onclick = async () => {
+            let res = await fetch("/saran");
+            let data = await res.json();
+            let daftar = document.getElementById("daftarSaran");
+            daftar.innerHTML = "";
+            data.forEach(m => {
+                daftar.innerHTML += `<li>${m.nama} (${m.kalori} kal)</li>`;
+            });
+        };
+    </script>
+</body>
+</html>
