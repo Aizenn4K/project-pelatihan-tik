@@ -1,0 +1,11 @@
+[
+    {"nama": "Nasi Putih", "kalori": 200},
+    {"nama": "Ayam Goreng", "kalori": 250},
+    {"nama": "Sayur Bayam", "kalori": 70},
+    {"nama": "Tahu Goreng", "kalori": 120},
+    {"nama": "Tempe Bacem", "kalori": 150},
+    {"nama": "Telur Rebus", "kalori": 90},
+    {"nama": "Ikan Bakar", "kalori": 180},
+    {"nama": "Susu", "kalori": 130},
+    {"nama": "Roti Tawar", "kalori": 80}
+]
